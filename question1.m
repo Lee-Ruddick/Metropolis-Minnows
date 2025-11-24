@@ -23,15 +23,18 @@ figure;
 bins_num = 100;
 histogram(X, 0:1/bins_num:1) % Draw the sample histogram
 xlabel("$x$", "Interpreter", "latex", "FontSize", 20)
-ylabel("Number of samples", "Interpreter", "latex", "FontSize", 20)
-title("Metropolis-Hastings applied to $e^{-5(x-0.5)^2} cos(3 \pi x) +1$", 'Interpreter', 'latex', 'FontSize', 20)
+ylabel("Frequency of Samples", "Interpreter", "latex", "FontSize", 20)
+title("Metropolis-Hastings Samples", 'Interpreter', 'latex', 'FontSize', 20)
 xlim([0, 1]);
+set(gca, 'FontSize', 25)
 
 figure;
-fplot(p, [0,1]); % Plot p(x) for comparison
+fplot(p, [0,1], 'LineWidth', 3); % Plot p(x) for comparison
 ylim([0, 2]);
 xlabel("$x$", 'Interpreter', 'latex', 'FontSize', 20);
 ylabel("$p(x)$", 'Interpreter', 'latex', 'FontSize', 20);
+title("Plot of $p(x)$", 'Interpreter', 'latex', 'FontSize', 20)
+set(gca, 'FontSize', 25)
 
 % Small sample to show how the markov chain explores the domain
 total_samples = 10; % Set the number of samples that should be drawn
