@@ -3,10 +3,10 @@ close all;
 p = @(r, theta, phi) deal(r .* sin(phi) .* cos(theta), r .* sin(phi) .* sin(theta), r.* cos(phi));
 
 % Large sample to plot the histogram
-total_samples = 2 * 10^4; % Set the number of samples that should be drawn
+total_samples = 2 * 10^6; % Set the number of samples that should be drawn
 
 X = nan(total_samples, 3);
-rng(1) % Fix the rng seed
+rng(1); % Fix the rng seed
 
 r = 1;
 theta = 2 * pi * rand(); % Choose theta_0 = theta
@@ -33,4 +33,28 @@ end
 figure;
 [x,y,z] = p(X(:,1), X(:,2), X(:,3));
 scatter3(x, y, z, 'x');
+xlabel('r'); ylabel('theta'); zlabel('phi');
 axis equal;
+set(gca, 'FontSize', 18);
+
+%Testing Uniformity
+theta = mod(X(:,2), 2*pi);
+z = cos(X(:,3));
+
+%Testing theta against 1/(2*pi)
+figure; 
+subplot(1,2,1);
+histogram(theta, 'Normalization', 'pdf'); hold on;
+yline(1/(2*pi), '--r', 'LineWidth', 2);
+title('θ density vs 1/(2π)'); xlabel('θ'); ylabel('pdf');
+set(gca, 'FontSize', 14);
+
+%Testing z against 1/2
+subplot(1,2,2);
+histogram(z, 'Normalization', 'pdf'); hold on;
+yline(1/2, '--r', 'LineWidth', 2);
+title('z=cos(φ) density vs 1/2'); xlabel('z'); ylabel('pdf');
+set(gca, 'FontSize', 14);
+
+
+
