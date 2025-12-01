@@ -1,0 +1,65 @@
+clear; clc; close all;
+
+rng(3);
+
+nSpins = 64;
+Jc = 1;
+T_now = 1;
+
+totalSteps = 40000;
+burnSteps  = 8000;
+thinGap    = 6;
+
+left_right = zeros(nSpins,2);
+for q = 1:nSpins
+    a = q-1; if a<1, a = nSpins; end
+    b = q+1; if b>nSpins, b = 1; end
+    left_right(q,1) = a;
+    left_right(q,2) = b;
+end
+
+maxKeep = floor((totalSteps - burnSteps)/thinGap);
+m_store = zeros(1,maxKeep);
+
+spins = ones(1,nSpins);
+spins(1:2:end) = -1;
+
+k = 0;
+
+for sweep = 1:totalSteps
+    
+    for r = 1:nSpins
+        spot = randi(nSpins);
+        s0 = spins(spot);
+        nbs = left_right(spot,:);
+        sL = spins(nbs(1));
+        sR = spins(nbs(2));
+        field_here = sL + sR;
+        dE = 2 * Jc * s0 * field_here * T_now;
+        acc = exp(-dE / T_now);
+        if acc > 1, acc = 1; end
+        if rand < acc
+            spins(spot) = -s0;
+        end
+    end
+    
+    if sweep > burnSteps && mod(sweep,thinGap)==0
+        k = k+1;
+        m_store(k) = sum(spins)/(nSpins+1);
+    end
+end
+
+m_store = m_store(1:k);
+
+edges = linspace(-1,1,50);
+figure;
+h = histogram(m_store, edges, 'Normalization','pdf');
+h.FaceColor = [0.22 0.54 0.78];
+h.FaceAlpha = 0.7;
+h.EdgeColor = 'none';
+
+xlabel('m');
+ylabel('density');
+title('Ising MH magnetisation at T = 1');
+grid on;
+box on;
