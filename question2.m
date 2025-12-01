@@ -19,15 +19,8 @@ for n=1:total_samples-1
     proposed_theta = 2 * pi * rand(); % Choose theta'
     proposed_phi = acos(2 * rand() - 1); % Choose phi'
 
-    [x,y,z] = p(X(n,1), X(n,2), X(n,3));
     [proposed_x, proposed_y, proposed_z] = p(proposed_r, proposed_theta, proposed_phi);
-
-    acceptance_probability = min(1, norm([proposed_x, proposed_y, proposed_z])/norm([x,y,z])); % Calculate the acceptance probability
-    if rand() <= acceptance_probability % If we accept x'
-        X(n+1,:) = [proposed_r, proposed_theta, proposed_phi]; % Set X(n+1) = x'
-    else % If we reject x'
-        X(n+1,:) = X(n,:); % Stay at current state and set X(n+1) = x
-    end
+    X(n+1,:) = [proposed_r, proposed_theta, proposed_phi]; % Set X(n+1) = x', since acceptance probability = 1
 end
 
 figure;
@@ -55,3 +48,7 @@ histogram(z, 'Normalization', 'pdf'); hold on;
 yline(1/2, '--r', 'LineWidth', 2);
 title('z=cos(φ) density vs 1/2'); xlabel('z'); ylabel('pdf');
 set(gca, 'FontSize', 14);
+yline(1/2, '--r', 'LineWidth', 2);
+title('z=cos(φ) density vs 1/2'); xlabel('z'); ylabel('pdf');
+set(gca, 'FontSize', 14);
+
