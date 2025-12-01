@@ -55,6 +55,3 @@ histogram(z, 'Normalization', 'pdf'); hold on;
 yline(1/2, '--r', 'LineWidth', 2);
 title('z=cos(φ) density vs 1/2'); xlabel('z'); ylabel('pdf');
 set(gca, 'FontSize', 14);
-
-
-
