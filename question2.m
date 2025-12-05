@@ -39,16 +39,21 @@ figure;
 subplot(1,2,1);
 histogram(theta, 'Normalization', 'pdf'); hold on;
 yline(1/(2*pi), '--r', 'LineWidth', 2);
-title('θ density vs 1/(2π)'); xlabel('θ'); ylabel('pdf');
-set(gca, 'FontSize', 14);
+t = title('$\theta$ density vs $\frac{1}{2\pi}$', 'Interpreter', 'latex'); xl = xlabel('$\theta$', 'Interpreter', 'latex'); yl = ylabel('pdf', 'Interpreter', 'latex');
+
+set(gca,'TickLabelInterpreter','latex'); 
+set(gca, 'FontSize', 15);
+t.FontSize = 22;
+xl.FontSize = 22;
+yl.FontSize = 20;
 
 %Testing z against 1/2
 subplot(1,2,2);
 histogram(z, 'Normalization', 'pdf'); hold on;
 yline(1/2, '--r', 'LineWidth', 2);
-title('z=cos(φ) density vs 1/2'); xlabel('z'); ylabel('pdf');
-set(gca, 'FontSize', 14);
-yline(1/2, '--r', 'LineWidth', 2);
-title('z=cos(φ) density vs 1/2'); xlabel('z'); ylabel('pdf');
-set(gca, 'FontSize', 14);
-
+t = title('$z=cos(\phi)$ density vs $\frac{1}{2}$', 'Interpreter', 'latex'); xl = xlabel('$z$', 'Interpreter', 'latex'); yl = ylabel('pdf', Interpreter='latex');
+set(gca,'TickLabelInterpreter','latex'); 
+set(gca, 'FontSize', 15);
+t.FontSize = 22;
+xl.FontSize = 22;
+yl.FontSize = 20;
