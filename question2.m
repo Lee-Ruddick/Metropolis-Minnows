@@ -26,7 +26,7 @@ end
 figure;
 [x,y,z] = p(X(:,1), X(:,2), X(:,3));
 scatter3(x, y, z, 'x');
-xlabel('r'); ylabel('theta'); zlabel('phi');
+xlabel('x'); ylabel('y'); zlabel('z');
 axis equal;
 set(gca, 'FontSize', 18);
 
@@ -57,3 +57,4 @@ set(gca, 'FontSize', 15);
 t.FontSize = 22;
 xl.FontSize = 22;
 yl.FontSize = 20;
+
